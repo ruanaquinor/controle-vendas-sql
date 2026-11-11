@@ -1,4 +1,4 @@
--- 1. CRIAÇÃO DAS TABELAS (DDL - Data Definition Language)
+-- CRIAÇÃO DAS TABELAS
 
 CREATE TABLE Clientes (
     id_cliente INT PRIMARY KEY AUTO_INCREMENT,
@@ -22,7 +22,7 @@ CREATE TABLE Pedidos (
     FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente)
 );
 
--- Tabela associativa (N:M) que liga os Pedidos aos Produtos
+-- Tabela associativa que liga os Pedidos aos Produtos
 CREATE TABLE Itens_Pedido (
     id_pedido INT NOT NULL,
     id_produto INT NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE Itens_Pedido (
     FOREIGN KEY (id_produto) REFERENCES Produtos(id_produto)
 );
 
--- 2. INSERÇÃO DE DADOS (DML - Data Manipulation Language)
+-- INSERÇÃO DE DADOS 
 
 INSERT INTO Clientes (nome, email, data_cadastro) VALUES
 ('Carlos Silva', 'carlos@email.com', '2026-10-15'),
@@ -59,7 +59,7 @@ INSERT INTO Itens_Pedido (id_pedido, id_produto, quantidade, preco_unitario) VAL
 
 -- 3. CONSULTAS E RELATÓRIOS (DQL - Data Query Language)
 
--- Relatório 1: Detalhamento do Pedido (Demonstra domínio de JOINs)
+-- Relatório 1: Detalhamento do Pedido 
 -- Traz o nome do cliente, os produtos comprados, a quantidade e o subtotal
 SELECT 
     c.nome AS Cliente,
@@ -72,7 +72,7 @@ INNER JOIN Pedidos pd ON c.id_cliente = pd.id_cliente
 INNER JOIN Itens_Pedido ip ON pd.id_pedido = ip.id_pedido
 INNER JOIN Produtos pr ON ip.id_produto = pr.id_produto;
 
--- Relatório 2: Total gasto por cliente (Demonstra funções matemáticas SUM e GROUP BY)
+-- Relatório 2: Total gasto por cliente
 SELECT 
     c.nome AS Cliente,
     SUM(ip.quantidade * ip.preco_unitario) AS Valor_Total_Gasto
@@ -81,7 +81,7 @@ INNER JOIN Pedidos pd ON c.id_cliente = pd.id_cliente
 INNER JOIN Itens_Pedido ip ON pd.id_pedido = ip.id_pedido
 GROUP BY c.id_cliente, c.nome;
 
--- Relatório 3: Alerta de Estoque Baixo (Demonstra filtros com WHERE)
+-- Relatório 3: Alerta de Estoque Baixo
 SELECT 
     nome_produto, 
     quantidade_estoque 
